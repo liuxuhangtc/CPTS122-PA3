@@ -734,10 +734,8 @@ Bool enqueue(Queue *pQueue, CustomerData newData)
 	QueueNode *pNew = NULL;
 	Bool success = false;
 
-	// get memory for the new node
 	pNew = (QueueNode *)malloc(sizeof(QueueNode));
 
-	// if we successfully got memory, finish creating the node
 	if (pNew != NULL)
 	{
 		pNew->data = newData;
@@ -771,7 +769,6 @@ Bool dequeue(Queue *pQueue)
 	QueueNode *pTemp = NULL;
 	Bool success = false;
 
-	// if the queue is not empty, delete the first node
 	if (!isEmpty(*pQueue))
 	{
 		if (pQueue->pHead == pQueue->pTail)
