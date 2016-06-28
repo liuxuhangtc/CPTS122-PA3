@@ -47,11 +47,13 @@ typedef enum bool
 	true
 } Bool;
 
+
+//functions
 void pause_clear(BOOL shouldPause, BOOL shouldClear);
-void seedRandomGenerator(BOOL assignTime, int randomSeed);
+void randomGen(BOOL assignTime, int randomSeed);
 int getRandomNumber(int minNum, int maxNum);
-int getIntInputCheck(int minGood, int maxGood);
-double getDoubleInputCheck(double minGood, double maxGood);
+int int_check(int minGood, int maxGood);
+double double_check(double minGood, double maxGood);
 void printMessage(char message[128], BOOL shouldPause, BOOL shouldClear);
 int display_menu(int inputMode, int itemPreType, char itemPreChar, int minItem, int numItems, char itemDelim[], char programTitle[], char menuTitle[], char menuItems[]);
 KeyInput getKeySelected(void);
@@ -60,8 +62,9 @@ char char_reverse_convert(int value, int is_upper);
 
 
 void pa3_main(int simulation_number, BOOL isSaving);
-int getArrivalTime(BOOL isExpress);
-int getServiceTime(BOOL isExpress);
+int arrive_time(BOOL isExpress);
+int service_time(BOOL isExpress);
+
 CustomerData clearData(void);
 
 void initializeQueue(Queue *pQueue);

@@ -46,17 +46,17 @@ void pa3_main(int simulation_number, BOOL isSaving)
 				fprintf(outFile, "************** Grocery Store Simulator **************\nSimulation #%d\n\n", simulation_number);
 			// ask how long simulation should last
 			printf("How long should the Simulation last (enter -1 = till manually ended)? ");
-			maxTicks = getIntInputCheck(-1, 99999999999999999);
+			maxTicks = int_check(-1, 99999999999999999);
 			// initialize the lanes
 			initializeQueue(&normalLane);
 			initializeQueue(&expressLane);
 			// set tick count to 0
 			ticks = 0;
 			// seed the random number generator
-			seedRandomGenerator(true, 0);
+			randomGen(true, 0);
 			// get and print the first arrival times
-			nextNormal = getArrivalTime(false);
-			nextExpress = getArrivalTime(true);
+			nextNormal = arrive_time(false);
+			nextExpress = arrive_time(true);
 			printf("First Normal Line Arrival: %d minute(s).\nFirst Express Line Arrival: %d minute(s).\n", nextNormal, nextExpress);
 			if (isSaving)
 				fprintf(outFile, "First Normal Line Arrival: %d minute(s).\nFirst Express Line Arrival: %d minute(s).\n", nextNormal, nextExpress);
@@ -83,7 +83,7 @@ void pa3_main(int simulation_number, BOOL isSaving)
 					if (isSaving)
 						fprintf(outFile, "Customer #%d has arrived.\n", custNum);
 					tempData.customerNumber = custNum;
-					tempData.serviceTime = getServiceTime(false);
+					tempData.serviceTime = service_time(false);
 					if (totalNormal == 0)
 						totalNormal = tempData.serviceTime;
 					else
@@ -93,7 +93,7 @@ void pa3_main(int simulation_number, BOOL isSaving)
 						tempData.serviceTime++;
 					enqueue(&normalLane, tempData);
 					// get a new arrival time
-					nextNormal = getArrivalTime(false);
+					nextNormal = arrive_time(false);
 				}
 				// check if a new express customer has arrived
 				if (nextExpress == 0)
@@ -105,7 +105,7 @@ void pa3_main(int simulation_number, BOOL isSaving)
 					if (isSaving)
 						fprintf(outFile, "Customer #%d has arrived.\n", custNum);
 					tempData.customerNumber = custNum;
-					tempData.serviceTime = getServiceTime(true);
+					tempData.serviceTime = service_time(true);
 					if (totalExpress == 0)
 						totalExpress = tempData.serviceTime;
 					else
@@ -115,7 +115,7 @@ void pa3_main(int simulation_number, BOOL isSaving)
 						tempData.serviceTime++;
 					enqueue(&expressLane, tempData);
 					// get a new arrival time
-					nextExpress = getArrivalTime(true);
+					nextExpress = arrive_time(true);
 				}
 				// SERVICE
 				// Normal Line
@@ -246,12 +246,12 @@ void pa3_main(int simulation_number, BOOL isSaving)
 }
 
 /*************************************************************
-* Function: getArrivalTime ()
+* Function: arrive_time ()
 * Description: This function gets a random arrival time
 * Preconditions: an arrival time is needed
 * Postconditions: an arrival time is gotten
 *************************************************************/
-int getArrivalTime(BOOL isExpress)
+int arrive_time(BOOL isExpress)
 {
 	int arrivalTime = 0;
 	// if the service time should be an express type
@@ -269,12 +269,12 @@ int getArrivalTime(BOOL isExpress)
 }
 
 /*************************************************************
-* Function: getServiceTime ()
+* Function: service_time ()
 * Description: This function gets a random service time
 * Preconditions: an service time is needed
 * Postconditions: an service time is gotten
 *************************************************************/
-int getServiceTime(BOOL isExpress)
+int service_time(BOOL isExpress)
 {
 	int serviceTime = 0;
 	// if the service time should be an express type
@@ -317,7 +317,7 @@ void pause_clear(BOOL shouldPause, BOOL shouldClear)
 }
 
 /*************************************************************
-* Function: seedRandomGenerator ()
+* Function: randomGen ()
 * Description: This function seeds the random number generator
 * Input parameters: whether the time should be assigned as the
 *						seed or not and the random seed
@@ -325,7 +325,7 @@ void pause_clear(BOOL shouldPause, BOOL shouldClear)
 * Preconditions: a random number is needed
 * Postconditions: a random number is returned
 *************************************************************/
-void seedRandomGenerator(BOOL assignTime, int randomSeed)
+void randomGen(BOOL assignTime, int randomSeed)
 {
 	// if the time should be assigned as the seed, assign it
 	if (assignTime)
@@ -360,14 +360,14 @@ int getRandomNumber(int minNum, int maxNum)
 }
 
 /*************************************************************
-* Function: getIntInputCheck ()
+* Function: int_check ()
 * Description: This function gets a "good" int input
 * Input parameters: the minimum good value, the maximum good value
 * Returns: the good int input
 * Preconditions: a "good" int input value is needed
 * Postconditions: a "good" int input value is returned
 *************************************************************/
-int getIntInputCheck(int minGood, int maxGood)
+int int_check(int minGood, int maxGood)
 {
 	// declare variables
 	int goodInputMain = 0, goodInputSub = 0, input = 0;
@@ -394,14 +394,14 @@ int getIntInputCheck(int minGood, int maxGood)
 }
 
 /*************************************************************
-* Function: getDoubleInputCheck ()
+* Function: double_check ()
 * Description: This function gets a "good" double input
 * Input parameters: the minimum good value, the maximum good value
 * Returns: the good double input
 * Preconditions: a "good" double input value is needed
 * Postconditions: a "good" double input value is returned
 *************************************************************/
-double getDoubleInputCheck(double minGood, double maxGood)
+double double_check(double minGood, double maxGood)
 {
 	// declare the variables
 	int goodInputMain = 0, goodInputSub = 0;

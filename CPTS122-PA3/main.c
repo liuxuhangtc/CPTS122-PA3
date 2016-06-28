@@ -42,10 +42,10 @@ int main(void)
 			option = display_menu(1, 0, ':', 1, 3, ";", "Grocery Store Simulation", "Main Menu",
 				"1.Start New Simulation;2.Toggle Simulation Record Creation ON or OFF;3.Exit");
 			// OPTIONS
-			// run a new simulation
+			// 1. run a new simulation
 			if (option == 1)
 			{
-				// collect data from resources file
+				//collect data from resources file
 				inFile = fopen("resources.simr", "r");
 				fscanf(inFile, "%d", &simNumber);
 				fscanf(inFile, " %d", &isSaving);
@@ -57,7 +57,7 @@ int main(void)
 				// run sim
 				pa3_main(simNumber, isSaving);
 			}
-			// toggle simulation saving
+			// 2.toggle simulation saving on or off
 			else if (option == 2)
 			{
 				// if it is currently saving, make it not
@@ -79,7 +79,7 @@ int main(void)
 					fclose(inFile);
 				}
 			}
-			// end the program
+			// 3.exit
 			else
 			{
 				fclose(inFile);
